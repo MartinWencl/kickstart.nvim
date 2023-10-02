@@ -6,7 +6,7 @@
 -- be extended to other languages as well. That's why it's called
 -- kickstart.nvim and not kitchen-sink.nvim ;)
 
--- TODO: Look at setting up pointer persistence
+-- TODO: Look at setting up breakpoint persistence
 -- https://github.com/mfussenegger/nvim-dap/issues/198
 
 return {
@@ -42,6 +42,7 @@ return {
       ensure_installed = {
         -- Update this to ensure that you have the debuggers for the langs you want
         'delve',
+        'netcoredbg',
       },
     }
 
@@ -83,6 +84,8 @@ return {
     dap.listeners.after.event_initialized['dapui_config'] = dapui.open
     dap.listeners.before.event_terminated['dapui_config'] = dapui.close
     dap.listeners.before.event_exited['dapui_config'] = dapui.close
+
+    --[[ Language setups ]]--
 
     -- Install golang specific config
     require('dap-go').setup()

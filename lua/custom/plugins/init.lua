@@ -1,5 +1,45 @@
--- You can add your own plugins here or in other files in this directory!
---  I promise not to create any merge conflicts in this directory :)
---
--- See the kickstart.nvim README for more information
-return {}
+-- Global key groups
+local wk = require("which-key")
+wk.register({
+  ["<leader>"] = {
+    g = {
+      name = "Git",
+    },
+    ["<leader>"] = {
+      name = "Telescope search"
+    },
+    e = {
+      name = "Error/Diagnostics/Debug"
+    },
+    d = {
+      name = "Delphi"
+    }
+  }
+})
+
+-- Git keybindings
+-- <leader>g for git "submenu"
+wk.register({
+  ["<leader>g"] = {
+    b = {
+      name = "Local buffer",
+    }
+  }
+})
+
+vim.keymap.set('n', '<leader>gc', "<Cmd>Telescope git_commits<CR>", { desc = 'Global git commits' })
+vim.keymap.set('n', '<leader>gbc', "<Cmd>Telescope git_bcommits<CR>", { desc = 'Buffer git commits' })
+vim.keymap.set('n', '<leader>gb', "<Cmd>Telescope git_branches<CR>", { desc = 'Global git branches' })
+
+-- Telescope keybindings
+vim.keymap.set('n', '<leader><leader>g', "<Cmd>Telescope live_grep<CR>", { desc = 'Live grep' })
+vim.keymap.set('n', '<leader><leader>f', "<Cmd>Telescope fd<CR>", { desc = 'Search files' })
+vim.keymap.set('n', '<leader><leader>/', function()
+  require('telescope.builtin').current_buffer_fuzzy_find(require('telescope.themes').get_dropdown {
+    winblend = 10,
+    previewer = false,
+  })
+end, { desc = 'Search current buffer' })
+
+-- Diagnostics/Debuggins
+vim.keymap.set('n', '<leader>dd', "<Cmd>Telescope diagnostics<CR>", { desc = 'Current diagnostics' })
