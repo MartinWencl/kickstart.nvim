@@ -44,5 +44,3 @@ Run the following command and then **you are ready to go**!
 ```sh
 nvim --headless "+Lazy! sync" +qa
 ```
-
-
