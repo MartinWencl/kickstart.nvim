@@ -6,6 +6,5 @@ return {
     'Shougo/neosnippet',
   },
   config = function()
-    vim.keymap.set('n', )
   end,
 }

@@ -41,5 +41,5 @@ vim.keymap.set('n', '<leader><leader>/', function()
   })
 end, { desc = 'Search current buffer' })
 
--- Diagnostics/Debuggins
-vim.keymap.set('n', '<leader>dd', "<Cmd>Telescope diagnostics<CR>", { desc = 'Current diagnostics' })
+-- Error/Diagnostics/Debuggins
+vim.keymap.set('n', '<leader>ed', "<Cmd>Telescope diagnostics<CR>", { desc = 'Current diagnostics' })
