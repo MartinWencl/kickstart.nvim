@@ -1,8 +1,11 @@
 return {
+  -- LSP Format
+  -- https://github.com/lukas-reineke/lsp-format.nvim
   'lukas-reineke/lsp-format.nvim',
   config = function()
     -- Prettier setup
     -- https://prettier.io/docs/en/
+    -- TODO: Look for a general purpouse formatter to replace Prettier
     local prettier = {
       formatCommand = [[prettier --stdin-filepath ${INPUT} ${--tab-width:tab_width}]],
       formatStdin = true,
@@ -10,8 +13,17 @@ return {
 
     -- CSharpier setup
     -- https://csharpier.com/docs/About
+    -- TODO: Change later for a local install instead of global
     local csharpier = {
       formatCommand = [[dotnet-csharpier . ]],
+      formatStdin = false,
+    }
+
+    -- Fourmolu setup
+    -- https://github.com/fourmolu/fourmolu
+    -- this is the defaulth cabal install path
+    local fourmolu = {
+      formatCommand = [[/home/martinw/.cabal/bin/fourmolu -i . ]],
       formatStdin = false,
     }
 
@@ -31,7 +43,8 @@ return {
         languages = {
           typescript = { prettier },
           yaml = { prettier },
-          csharp = { csharpier }
+          csharp = { csharpier },
+          haskell = { fourmolu },
         },
       },
     })
