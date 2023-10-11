@@ -173,7 +173,7 @@ require('lazy').setup({
     main = "ibl",
     name = "ibl",
     opts = {},
-    config = function ()
+    config = function()
       require("ibl").setup()
     end
   },
@@ -332,10 +332,10 @@ vim.defer_fn(function()
   require('nvim-treesitter.configs').setup {
     -- Add languages to be installed here that you want installed for treesitter
     ensure_installed = { 'c', 'cpp', 'go', 'lua', 'python', 'rust', 'tsx', 'javascript', 'typescript', 'vimdoc', 'vim' },
-  
+
     -- Autoinstall languages that are not installed. Defaults to false (but you can change for yourself!)
     auto_install = false,
-  
+
     highlight = { enable = true },
     indent = { enable = true },
     incremental_selection = {
@@ -563,16 +563,25 @@ local wk = require("which-key")
 wk.register({
   ["<leader>"] = {
     g = {
-      name = "Git",
+      name = "[g]it",
     },
     ["<leader>"] = {
       name = "Telescope search"
     },
     e = {
-      name = "Error/Diagnostics/Debug"
+      name = "[e]rror/diagnostics/debug"
     },
     d = {
-      name = "Delphi"
+      name = "[d]elphi"
+    },
+    f = {
+      name = "[f]iles",
+    },
+    b = {
+      name = "[p]uffers"
+    },
+    p = {
+      name = "[p]review"
     }
   }
 })
@@ -582,7 +591,7 @@ wk.register({
 wk.register({
   ["<leader>g"] = {
     b = {
-      name = "Local buffer",
+      name = "Local [b]uffer",
     }
   }
 })
@@ -597,9 +606,99 @@ vim.keymap.set('n', '<leader><leader>f', "<Cmd>Telescope fd<CR>", { desc = 'Sear
 vim.keymap.set('n', '<leader><leader>/', function()
   require('telescope.builtin').current_buffer_fuzzy_find(require('telescope.themes').get_dropdown {
     winblend = 10,
-    previewer = false,
+    previewer = true,
   })
 end, { desc = 'Search current buffer' })
 
 -- Error/Diagnostics/Debuggins
 vim.keymap.set('n', '<leader>ed', "<Cmd>Telescope diagnostics<CR>", { desc = 'Current diagnostics' })
+
+-- File management keybindings
+vim.keymap.set('n', '<leader>ff', "<Cmd>Neotree float<CR>", { desc = 'Floating file explorer' })
+vim.keymap.set('n', '<leader>fe', "<Cmd>Neotree toggle<CR>", { desc = 'Floating file explorer' })
+vim.keymap.set('n', '<leader>e', "<Cmd>Neotree toggle<CR>")
+
+-- buffers
+vim.keymap.set('n', '<leader>bb', "<Cmd>Neotree source=buffers position=float toggle<CR>", { desc = "View buffers" })
+
+-- terminal
+vim.keymap.set('t', '<esc>', "<C-\\><C-n>", { silent = true })
+
+-- set winbar
+vim.opt.winbar = "%=%m %f"
+
+-- Terminal setup
+local open_floating_window = function(width, height, buf)
+  local ui = vim.api.nvim_list_uis()[1]
+
+  local opts = {
+    relative = 'editor',
+    width = width,
+    height = height,
+    col = (ui.width / 2) - (width / 2),
+    row = (ui.height / 2) - (height / 2),
+    anchor = 'NW',
+    style = 'minimal',
+  }
+  vim.api.nvim_open_win(buf, true, opts)
+end
+
+-- TODO: Make into command
+local bottom_terminal = {}
+
+local toggle_bottom_term = function()
+  if bottom_terminal.win == nil then
+    local height = 8 -- height in rows
+
+    vim.cmd("below split")
+    vim.cmd.terminal()
+    local win = vim.api.nvim_get_current_win()
+    bottom_terminal.win = win
+    vim.api.nvim_win_set_height(win, height)
+  else
+    vim.api.nvim_win_close(bottom_terminal.win, false)
+    bottom_terminal.win = nil
+  end
+end
+
+-- drop-down terminal, like Yakuake.
+-- TODO: make toggle
+-- TODO: make into command
+local quake_style_terminal = {}
+
+local toggle_quake_term = function()
+  -- TODO: Finalize 
+  -- local buf = quake_style_terminal.buf
+  -- if quake_style_terminal.buf == nil then
+  --   buf = vim.api.nvim_create_buf(false, true)
+  -- else
+  --   quake_style_terminal.buf = buf
+
+    local buf = vim.api.nvim_create_buf(false, true)
+    local ui = vim.api.nvim_list_uis()[1]
+    local width = ui.width
+    local height = 15
+    local opts = {
+      relative = 'editor',
+      width = width,
+      height = height,
+      col = 0,
+      row = 0,
+      anchor = 'NW',
+      style = 'minimal',
+      border = 'shadow',
+    }
+
+    vim.api.nvim_open_win(buf, true, opts)
+    vim.cmd.terminal()
+--  end
+end
+
+-- TODO: Create another command for a quick note, maybe also for DEK ITAs
+local open_quick_note = function ()
+  local filename = vim.fn.stdpath('config') .. '/init.vim'
+  vim.cmd('edit ' .. filename)
+end
+
+vim.keymap.set("n", "<leader>tt", toggle_bottom_term)
+vim.keymap.set("n", "<leader>tq", toggle_quake_term)

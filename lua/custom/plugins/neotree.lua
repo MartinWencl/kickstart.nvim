@@ -66,7 +66,7 @@ return {
         ["i"] = "show_file_details",
       }
     }
+    -- TODO: Move neotree keybinds here
 
-    vim.keymap.set('n', "<leader>e", "<Cmd>Neotree toggle<CR>")
   end,
 }
