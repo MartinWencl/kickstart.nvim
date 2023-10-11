@@ -578,7 +578,7 @@ wk.register({
       name = "[f]iles",
     },
     b = {
-      name = "[p]uffers"
+      name = "[b]uffers"
     },
     p = {
       name = "[p]review"
@@ -619,6 +619,7 @@ vim.keymap.set('n', '<leader>fe', "<Cmd>Neotree toggle<CR>", { desc = 'Floating 
 vim.keymap.set('n', '<leader>e', "<Cmd>Neotree toggle<CR>")
 
 -- buffers
+-- TODO: Switch to Telescope, add more buffer functionality
 vim.keymap.set('n', '<leader>bb', "<Cmd>Neotree source=buffers position=float toggle<CR>", { desc = "View buffers" })
 
 -- terminal
@@ -643,6 +644,7 @@ local open_floating_window = function(width, height, buf)
   vim.api.nvim_open_win(buf, true, opts)
 end
 
+-- Bottom terminal
 -- TODO: Make into command
 local bottom_terminal = {}
 
@@ -667,38 +669,56 @@ end
 local quake_style_terminal = {}
 
 local toggle_quake_term = function()
-  -- TODO: Finalize 
-  -- local buf = quake_style_terminal.buf
-  -- if quake_style_terminal.buf == nil then
-  --   buf = vim.api.nvim_create_buf(false, true)
-  -- else
-  --   quake_style_terminal.buf = buf
+  local buf = quake_style_terminal.buf
+  if buf == nil then
+    buf = vim.api.nvim_create_buf(false, true)
+    quake_style_terminal.buf = buf
+  end
 
-    local buf = vim.api.nvim_create_buf(false, true)
-    local ui = vim.api.nvim_list_uis()[1]
-    local width = ui.width
-    local height = 15
-    local opts = {
-      relative = 'editor',
-      width = width,
-      height = height,
-      col = 0,
-      row = 0,
-      anchor = 'NW',
-      style = 'minimal',
-      border = 'shadow',
-    }
+  local ui = vim.api.nvim_list_uis()[1]
+  local width = ui.width
+  local height = 15
+  local opts = {
+    relative = 'editor',
+    width = width,
+    height = height,
+    col = 0,
+    row = 0,
+    anchor = 'NW',
+    style = 'minimal',
+    border = 'shadow',
+  }
 
-    vim.api.nvim_open_win(buf, true, opts)
-    vim.cmd.terminal()
---  end
-end
-
--- TODO: Create another command for a quick note, maybe also for DEK ITAs
-local open_quick_note = function ()
-  local filename = vim.fn.stdpath('config') .. '/init.vim'
-  vim.cmd('edit ' .. filename)
+  vim.api.nvim_open_win(buf, true, opts)
+  vim.cmd.terminal()
 end
 
 vim.keymap.set("n", "<leader>tt", toggle_bottom_term)
 vim.keymap.set("n", "<leader>tq", toggle_quake_term)
+
+-- TODO: Add more note support
+-- Quicknotes
+local quicknote = {}
+
+local open_quick_note = function()
+  local buf = quicknote.buf
+  if buf == nil then
+    buf = vim.api.nvim_create_buf(false, false)
+    quicknote.buf = buf
+  end
+
+  local path = "/home/martinw/Notes/quicknote.norg"
+  vim.api.nvim_buf_set_name(buf, path)
+  vim.api.nvim_buf_call(buf, vim.cmd.edit)
+  open_floating_window(60, 30, buf)
+end
+
+vim.keymap.set("n", "<leader>tn", open_quick_note)
+
+-- TODO: Ability to select note to quickly edit
+-- i.e. use Neo-tree to select a file from notes dir and open in big floating window
+
+-- local open_note = function ()
+--   local buf = vim.api.nvim_create_buf(false, false)
+--
+-- end

@@ -66,6 +66,7 @@ return {
         ["i"] = "show_file_details",
       }
     }
+    -- TODO: Setup autoclose on Open, but also setup a "preview", where it doesnt close, so just browsing is also possible
     -- TODO: Move neotree keybinds here
 
   end,
