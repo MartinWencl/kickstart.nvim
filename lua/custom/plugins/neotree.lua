@@ -64,6 +64,10 @@ return {
         ["<"] = "prev_source",
         [">"] = "next_source",
         ["i"] = "show_file_details",
+      },
+      commands = {
+        test = function (state)
+        end
       }
     }
     -- TODO: Setup autoclose on Open, but also setup a "preview", where it doesnt close, so just browsing is also possible
