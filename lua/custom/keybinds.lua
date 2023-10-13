@@ -1,3 +1,4 @@
+-- TODO: Think about moving keybinds to specific files, i.e. neotree keybinds -> neotree config
 -- Global key groups
 local wk = require("which-key")
 wk.register({
@@ -64,3 +65,5 @@ vim.keymap.set('n', '<leader>bb', "<Cmd>Neotree source=buffers position=float to
 
 -- Terminal
 vim.keymap.set('t', '<esc>', "<C-\\><C-n>", { silent = true })
+
+-- TODO: Create a function to clone all open windows other than the main, i.e. neotree, terminals

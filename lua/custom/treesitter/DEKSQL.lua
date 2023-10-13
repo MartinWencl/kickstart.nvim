@@ -1,4 +1,6 @@
+require "lib.treesitter"
 -- Imbedded SQL formatting for csharp
+-- works specificaly with DEKLib
 -- TODO: Fix
 -- -> looks like the formatting itself is broken, check text before/after, load into python repl
 local sql_query = vim.treesitter.query.parse(
@@ -16,16 +18,10 @@ local sql_query = vim.treesitter.query.parse(
   ]]
 )
 
-local get_root = function (bufnr)
-  local parser = vim.treesitter.get_parser(bufnr, "c_sharp", {})
-  local tree = parser:parse()[1]
-  return tree:root()
-end
 
 local run_formatter = function (text)
-  -- TODO: change to use vim.fn.path
   -- TODO: change to a vim job so its non-blocking
-  local str_output = vim.fn.system("/home/martinw/.config/nvim/support/sqlformat.py", text)
+  local str_output = vim.fn.system(vim.fn.stdpath("config") .. "/support/sqlformat.py", text)
   if str_output == nil then
     return ""
   end
@@ -41,7 +37,7 @@ local format_sql = function(bufnr)
     vim.notify("Can only be used in c#!", vim.log.levels.WARN)
   end
 
-  local root = get_root(bufnr)
+  local root = TreesitterLib:get_root(bufnr, "c_sharp")
   local changes = {}
 
   for id, node in sql_query:iter_captures(root, bufnr, 0, -1) do

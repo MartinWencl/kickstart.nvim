@@ -1,3 +1,4 @@
+require "lib.windows"
 -- Quicknotes
 local quicknote = {}
 
@@ -11,7 +12,7 @@ local open_quick_note = function()
   local path = "/home/martinw/Notes/quicknote.norg"
   vim.api.nvim_buf_set_name(buf, path)
   vim.api.nvim_buf_call(buf, vim.cmd.edit)
-  open_floating_window(60, 30, buf)
+  WindowLib:open_floating_window(60, 30, buf)
 end
 
 vim.keymap.set("n", "<leader>tn", open_quick_note)
