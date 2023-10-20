@@ -68,6 +68,9 @@ require('lazy').setup({
       -- Adds a number of user-friendly snippets
       'rafamadriz/friendly-snippets',
     },
+    source = {
+      { name = "neorg"},
+    }
   },
 
   -- Useful plugin to show you pending keybinds.
