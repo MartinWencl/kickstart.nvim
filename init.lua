@@ -441,7 +441,6 @@ local servers = {
       telemetry = { enable = false },
     },
   },
-  rust_analyzer = {}
 }
 
 -- Setup neovim lua configuration

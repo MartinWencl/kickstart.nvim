@@ -68,4 +68,5 @@ local format_sql = function(bufnr)
   end
 end
 
-vim.keymap.set("n", "<leader>tf", format_sql, { desc = "Format" })
+-- TODO: Enable again, cant use t as group leader
+-- vim.keymap.set("n", "<leader>tf", format_sql, { desc = "Format" })

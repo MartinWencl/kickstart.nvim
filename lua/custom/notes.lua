@@ -16,7 +16,8 @@ local open_quick_note = function()
   WindowLib:open_floating_window(60, 30, buf)
 end
 
-vim.keymap.set("n", "<leader>tn", open_quick_note)
+-- TODO: Enable, cant use t as group leader
+-- vim.keymap.set("n", "<leader>tn", open_quick_note, { desc = "open quick [n]ote"})
 
 -- TODO: Ability to select note to quickly edit
 -- i.e. use Neo-tree to select a file from notes dir and open in big floating window
@@ -24,5 +25,3 @@ local open_note = function()
   local buf = vim.api.nvim_create_buf(false, false)
   require("neo-tree").open()
 end
-
-vim.keymap.set("n", "<leader>to", open_note)
