@@ -24,9 +24,12 @@ wk.register({
     p = {
       name = "[p]review"
     },
-    -- t = {
-    --   name = "+[t]abs"
-    -- },
+    t = {
+      name = "[t]abs"
+    },
+    o = {
+      name = "[o]pen"
+    },
   }
 })
 
