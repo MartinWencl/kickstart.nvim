@@ -1,3 +1,4 @@
+-- https://github.com/rmagatti/goto-preview
 return {
   'rmagatti/goto-preview',
   config = function()

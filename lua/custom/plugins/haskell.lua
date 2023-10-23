@@ -1,3 +1,4 @@
+-- https://github.com/mrcjkb/haskell-tools.nvim
 return {
   'mrcjkb/haskell-tools.nvim',
   dependencies = {

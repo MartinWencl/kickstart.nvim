@@ -1,3 +1,4 @@
+-- https://github.com/nvim-neorg/neorg
 return {
   "nvim-neorg/neorg",
   build = ":Neorg sync-parsers",

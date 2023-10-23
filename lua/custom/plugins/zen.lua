@@ -1,3 +1,4 @@
+-- https://github.com/folke/zen-mode.nvim
 -- TODO: Fix and make proper config with keybinds
 return {
   "folke/zen-mode.nvim",

@@ -1,3 +1,5 @@
+-- https://github.com/debugloop/telescope-undo.nvim 
+-- TODO: More conf
 return {
   "nvim-telescope/telescope.nvim",
   dependencies = {

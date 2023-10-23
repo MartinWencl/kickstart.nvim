@@ -40,13 +40,13 @@ wk.register({
   }
 })
 
-vim.keymap.set("n", "<leader>gc", "<Cmd>Telescope git_commits<CR>", { desc = 'Global git commits' })
-vim.keymap.set("n", "<leader>gbc", "<Cmd>Telescope git_bcommits<CR>", { desc = 'Buffer git commits' })
-vim.keymap.set("n", "<leader>gb", "<Cmd>Telescope git_branches<CR>", { desc = 'Global git branches' })
+vim.keymap.set("n", "<leader>gc", "<Cmd>Telescope git_commits<CR>", { desc = 'Global git [c]ommits' })
+vim.keymap.set("n", "<leader>gbc", "<Cmd>Telescope git_bcommits<CR>", { desc = 'Buffer git [c]ommits' })
+vim.keymap.set("n", "<leader>gb", "<Cmd>Telescope git_branches<CR>", { desc = 'Global git [b]ranches' })
 
 -- Telescope keybindings
-vim.keymap.set("n", "<leader><leader>g", "<Cmd>Telescope live_grep<CR>", { desc = 'Live grep' })
-vim.keymap.set("n", "<leader><leader>f", "<Cmd>Telescope fd<CR>", { desc = 'Search files' })
+vim.keymap.set("n", "<leader><leader>g", "<Cmd>Telescope live_grep<CR>", { desc = 'Live [g]rep' })
+vim.keymap.set("n", "<leader><leader>f", "<Cmd>Telescope fd<CR>", { desc = 'Search [f]iles' })
 vim.keymap.set("n", "<leader><leader>/", function()
   require("telescope.builtin").current_buffer_fuzzy_find(require("telescope.themes").get_dropdown {
     winblend = 10,
@@ -55,15 +55,16 @@ vim.keymap.set("n", "<leader><leader>/", function()
 end, { desc = "Search current buffer" })
 
 -- Error/Diagnostics/Debuggins
-vim.keymap.set("n", "<leader>ed", "<Cmd>Telescope diagnostics<CR>", { desc = 'Current diagnostics' })
+vim.keymap.set("n", "<leader>ed", "<Cmd>Telescope diagnostics<CR>", { desc = 'Current [d]iagnostics' })
 
 -- File management keybindings
+-- TODO: rethink
 vim.keymap.set("n", "<leader>ff", "<Cmd>Neotree float<CR>", { desc = 'Floating file explorer' })
 vim.keymap.set("n", "<leader>fe", "<Cmd>Neotree toggle<CR>", { desc = 'Floating file explorer' })
 vim.keymap.set("n", "<leader>e", "<Cmd>Neotree toggle<CR>")
 
 -- buffers
--- TODO: Switch to Telescope, add more buffer functionality
+-- TODO: Add more buffer functionality
 vim.keymap.set("n", "<leader>bb", "<Cmd>Telescope buffers<CR>", { desc = "View buffers" })
 
 -- Terminal
