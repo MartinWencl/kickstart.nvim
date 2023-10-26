@@ -19,4 +19,3 @@ function WindowLib:open_floating_window (width, height, bufnr)
   }
   vim.api.nvim_open_win(bufnr, true, opts)
 end
-

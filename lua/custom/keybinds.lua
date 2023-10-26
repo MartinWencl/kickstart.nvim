@@ -6,8 +6,8 @@ wk.register({
     g = {
       name = "[g]it",
     },
-    ["<leader>"] = {
-      name = "Telescope search"
+    s = {
+      name = "[s]earch"
     },
     e = {
       name = "[e]rror/diagnostics/debug"
@@ -33,6 +33,18 @@ wk.register({
   }
 })
 
+-- Turn off arrow keys in insert mode
+vim.keymap.set("i", "<left>", "")
+vim.keymap.set("i", "<right>", "")
+vim.keymap.set("i", "<up>", "")
+vim.keymap.set("i", "<down>", "")
+
+-- Turn off arrow keys in normal mode
+vim.keymap.set("n", "<left>", "")
+vim.keymap.set("n", "<right>", "")
+vim.keymap.set("n", "<up>", "")
+vim.keymap.set("n", "<down>", "")
+
 -- Git keybindings
 -- <leader>g for git "submenu"
 wk.register({
@@ -48,9 +60,9 @@ vim.keymap.set("n", "<leader>gbc", "<Cmd>Telescope git_bcommits<CR>", { desc = '
 vim.keymap.set("n", "<leader>gb", "<Cmd>Telescope git_branches<CR>", { desc = 'Global git [b]ranches' })
 
 -- Telescope keybindings
-vim.keymap.set("n", "<leader><leader>g", "<Cmd>Telescope live_grep<CR>", { desc = 'Live [g]rep' })
-vim.keymap.set("n", "<leader><leader>f", "<Cmd>Telescope fd<CR>", { desc = 'Search [f]iles' })
-vim.keymap.set("n", "<leader><leader>/", function()
+vim.keymap.set("n", "<leader>sg", "<Cmd>Telescope live_grep<CR>", { desc = 'Live [g]rep' })
+vim.keymap.set("n", "<leader>sf", "<Cmd>Telescope fd<CR>", { desc = 'Search [f]iles' })
+vim.keymap.set("n", "<leader>s/", function()
   require("telescope.builtin").current_buffer_fuzzy_find(require("telescope.themes").get_dropdown {
     winblend = 10,
     previewer = true,
@@ -71,10 +83,8 @@ vim.keymap.set("n", "<leader>e", "<Cmd>Neotree toggle<CR>")
 vim.keymap.set("n", "<leader>bb", "<Cmd>Telescope buffers<CR>", { desc = "View buffers" })
 
 -- Terminal
+-- Changes the crazy default terminal escape keymap to esc
 vim.keymap.set("t", "<esc>", "<C-\\><C-n>", { silent = true })
-
--- TODO: Create a function to close all open windows other than the main, i.e. neotree, terminals
--- Somehow they need to be marked
 
 -- Tab navigation
 vim.keymap.set("n", "<leader>tq", "<Cmd>tabclose<CR>", { silent = true, desc = "close tab" })
@@ -98,3 +108,6 @@ hydra({
     { "<Esc>", nil,                    { exit = true, nowait = true } },
   },
 })
+
+-- Sourcing file
+vim.keymap.set("n", "<leader><leader>x", "<Cmd>source %<CR>", { desc = "source current file"})

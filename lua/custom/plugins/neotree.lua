@@ -69,10 +69,17 @@ return {
       commands = {
         test = function (state)
         end
+      },
+      event_handlers = {
+        {
+          event = "file_opened",
+          handler = function (file_path)
+            require("neo-tree.command").execute({ action = "close" })
+          end
+        },
       }
     }
     -- TODO: Setup autoclose on Open, but also setup a "preview", where it doesnt close, so just browsing is also possible
     -- TODO: Move neotree keybinds here
-
   end,
 }
