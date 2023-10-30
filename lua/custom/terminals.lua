@@ -1,12 +1,15 @@
 -- Terminal setup
 
 -- Autocmd -> deletes terminal buffers after leaving
--- Does it with all terminal buffers, maybe later implement persistent terminal buffer
+-- Does it with all terminal buffers
+-- TODO: Implement persistent terminal buffer
 vim.api.nvim_create_autocmd("BufLeave", {
   pattern = "term://*",
   group = vim.api.nvim_create_augroup("Terminal", { clear = true }),
   callback = function ()
     local buf = vim.api.nvim_get_current_buf()
+    if buf == nil then return end
+
     vim.api.nvim_buf_delete(buf, { force = true })
   end
 })
@@ -14,6 +17,7 @@ vim.api.nvim_create_autocmd("BufLeave", {
 -- Bottom terminal
 local bottom_terminal = {}
 
+--- Toggles bottom terminal, similar to `vs code`
 local toggle_bottom_term = function()
   -- Need to check if the window is still open, as it could have been closed using <C-w>q and not by this fn
   if vim.fn.winheight(bottom_terminal.win) == -1 then
@@ -36,8 +40,8 @@ local toggle_bottom_term = function()
     end)
   else
     local buf = vim.api.nvim_win_get_buf(bottom_terminal.win)
-    vim.api.nvim_win_close(bottom_terminal.win, false)
     vim.api.nvim_buf_delete(buf, { force = true })
+    vim.api.nvim_win_close(bottom_terminal.win, false)
     bottom_terminal.win = nil
   end
 end
@@ -45,7 +49,7 @@ end
 vim.api.nvim_create_user_command("TermBottom", toggle_bottom_term, {})
 vim.keymap.set("n", "<leader>ot", toggle_bottom_term, { desc = "open bottom [t]erminal"})
 
--- drop-down terminal, like Yakuake.
+--- drop-down terminal, like Yakuake.
 -- TODO: make toggle
 local quake_style_terminal = {}
 

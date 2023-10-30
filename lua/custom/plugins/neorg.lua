@@ -70,6 +70,13 @@ return {
     end
     vim.keymap.set("n", "<leader>ns", switch_modes, { desc = "[s]witch mode" })
 
+    -- Go to index
+    vim.keymap.set("n", "<leader>ni", "<Cmd>Neorg index<CR>", { desc = "goto [i]ndex" })
+
+    -- Insert links
+    vim.keymap.set("n", "<leader>nl", "<Cmd>Telescope neorg insert_link<CR>", { desc = "insert [l]ink" })
+    vim.keymap.set("n", "<leader>nf", "<Cmd>Telescope neorg insert_file_link<CR>", { desc = "insert [f]ile link" })
+
     vim.wo.foldlevel = 99
     vim.wo.conceallevel = 2
   end,

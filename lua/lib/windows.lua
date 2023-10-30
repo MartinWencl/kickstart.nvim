@@ -1,7 +1,7 @@
--- Metatable containing all the window helper functions
+--- Metatable containing all the window helper functions
 WindowLib = {}
 
--- Opens a floating window centered in the middle of the screen
+--- Opens a floating window centered in the middle of the screen
 --- @param width number width of the window in chars
 --- @param height number height of the window in chars
 --- @param bufnr number buffer that will be used

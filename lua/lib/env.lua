@@ -1,4 +1,4 @@
--- Table containing all the function related to the current enviroment
+--- Table containing all the function related to the current enviroment
 EnvLib = {}
 
 --- Checks the env var MARTIN_LOCATION 
