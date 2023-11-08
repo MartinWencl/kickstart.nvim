@@ -5,6 +5,7 @@ local quicknote_name = ""
 
 -- Quicknotes
 -- Autocmd -> saves the buffer of quicknote and appends it to Notes/home/index.norg
+-- TODO: Still adds an empty note
 vim.api.nvim_create_autocmd("BufLeave", {
   pattern = "quicknote.norg",
   group = vim.api.nvim_create_augroup("Quicknote", { clear = true }),
@@ -13,6 +14,7 @@ vim.api.nvim_create_autocmd("BufLeave", {
     local header = "\n** Quicknote from " .. os.date("%d.%m.%Y")
 
     local quicknote_buf = vim.api.nvim_get_current_buf()
+    -- TODO: add support for neorg workspaces, not just home
     local file = io.open(vim.fn.expand("~") .. "/Notes/home/index.norg", "a")
     local lines = vim.api.nvim_buf_get_lines(quicknote_buf, 0, -1, false)
 
@@ -35,6 +37,7 @@ vim.api.nvim_create_autocmd("BufLeave", {
 })
 
 -- Autocmd -> removes the file if it has been written to.
+-- TODO: Does this work
 -- TODO: Is there a better way to do this? Maybe block write before it happens with BufWritePre
 vim.api.nvim_create_autocmd("BufWritePost", {
   pattern = "quicknote.norg",
@@ -51,9 +54,9 @@ local open_quick_note = function()
   local name = "quicknote.norg"
   quicknote_name = vim.fn.input({ prompt = "Quicknote header (leave empty to autogenerate): "})
   vim.api.nvim_buf_set_name(buf, name)
-  -- vim.api.nvim_buf_call(buf, vim.cmd.edit)
   vim.cmd.startinsert()
   vim.api.nvim_buf_call(buf, function ()
+    --TODO: URGENT - this doesnt set it only for the buffer, but for the whole neovim it seems
     vim.keymap.set("n", "q", "<Cmd>q!<CR>", { silent = true })
     vim.keymap.set("n", "<esc>", "<Cmd>q!<CR>", { silent = true })
     vim.keymap.set("n", ";", "<Cmd>q!<CR>", { silent = true })
