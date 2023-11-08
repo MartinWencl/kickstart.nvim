@@ -1,3 +1,4 @@
+-- https://github.com/ThePrimeagen/harpoon
 return {
   'ThePrimeagen/harpoon',
   config = function()
@@ -38,6 +39,11 @@ return {
     end
     vim.keymap.set("n", "<leader>hq", open_menu, { desc = "harpoon [q]uickmenu" })
 
+    local add_to_quickfix = function ()
+      require("harpoon.mark").to_quickfix_list()
+    end
+    vim.keymap.set("n", "<leader>hf", add_to_quickfix, { desc = "add to quick[f]ix" })
+
     -- Mark file
     -- removes file but leaves mark to empty file - (empty)
     local mark_file = function ()
@@ -45,7 +51,6 @@ return {
       local current_file_index = harproon.get_current_index()
       if current_file_index ~= nil then
         harproon.rm_file(current_file_index)
-        require("harpoon.mark")
       else
         harproon.add_file()
       end
