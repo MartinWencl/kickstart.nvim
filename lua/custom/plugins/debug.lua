@@ -24,7 +24,6 @@ return {
 
     -- Add your own debuggers here
     'leoluz/nvim-dap-go',
-    'mfussenegger/nvim-dap-python',
   },
   config = function()
     local dap = require 'dap'
@@ -91,9 +90,6 @@ return {
 
     -- Install golang specific config
     require('dap-go').setup()
-
-    -- Install python conf
-    require('dap-python').setup('~/.virtualenvs/debugpy/bin/python')
 
     -- netcoredbg config
     -- setups DAP for c# and f#

@@ -1,4 +1,5 @@
 -- https://github.com/ThePrimeagen/harpoon
+-- TODO: Setup harpoon
 return {
   'ThePrimeagen/harpoon',
   branch = "harpoon2",

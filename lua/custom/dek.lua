@@ -68,6 +68,7 @@ local select_dir_to_search = function ()
   vim.ui.select(dirs, { prompt = "Select a folder: "}, on_dir_select)
 end
 
+-- Setting the keymaps for the mutliple search modes
 local use_live_grep = function ()
   mode = "live_grep"
   select_dir_to_search()
