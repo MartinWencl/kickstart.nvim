@@ -22,6 +22,7 @@ local sql_query = vim.treesitter.query.parse(
 local run_formatter = function (text)
   -- TODO: change to a vim job so its non-blocking
   local str_output = vim.fn.system(vim.fn.stdpath("config") .. "/support/sqlformat.py", text)
+  vim.notify(str_output, vim.log.levels.WARN)
   if str_output == nil then
     return ""
   end
@@ -69,4 +70,4 @@ local format_sql = function(bufnr)
 end
 
 -- TODO: Enable again, cant use t as group leader
--- vim.keymap.set("n", "<leader>tf", format_sql, { desc = "Format" })
+vim.keymap.set("n", "<leader>tf", format_sql, { desc = "Format" })
