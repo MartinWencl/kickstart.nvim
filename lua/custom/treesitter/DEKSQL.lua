@@ -18,7 +18,6 @@ local sql_query = vim.treesitter.query.parse(
   ]]
 )
 
-
 local run_formatter = function (text)
   -- TODO: change to a vim job so its non-blocking
   local str_output = vim.fn.system(vim.fn.stdpath("config") .. "/support/sqlformat.py", text)
