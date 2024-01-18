@@ -1,42 +1,3 @@
---[[
-
-=====================================================================
-==================== READ THIS BEFORE CONTINUING ====================
-=====================================================================
-
-Kickstart.nvim is *not* a distribution.
-
-Kickstart.nvim is a template for your own configuration.
-  The goal is that you can read every line of code, top-to-bottom, understand
-  what your configuration is doing, and modify it to suit your needs.
-
-  Once you've done that, you should start exploring, configuring and tinkering to
-  explore Neovim!
-
-  If you don't know anything about Lua, I recommend taking some time to read through
-  a guide. One possible example:
-  - https://learnxinyminutes.com/docs/lua/
-
-
-  And then you can explore or search through `:help lua-guide`
-  - https://neovim.io/doc/user/lua-guide.html
-
-
-Kickstart Guide:
-
-I have left several `:help X` comments throughout the init.lua
-You should run that command and read that help section for more information.
-
-In addition, I have some `NOTE:` items throughout the file.
-These are for you, the reader to help understand what is happening. Feel free to delete
-them once you know what you're doing, but they should serve as a guide for when you
-are first encountering a few different constructs in your nvim config.
-
-I hope you enjoy your Neovim journey,
-- TJ
-
-P.S. You can delete this when you're done too. It's your config now :)
---]]
 -- Set <space> as the leader key
 -- See `:help mapleader`
 --  NOTE: Must happen before plugins are required (otherwise wrong leader will be used)
@@ -107,6 +68,9 @@ require('lazy').setup({
       -- Adds a number of user-friendly snippets
       'rafamadriz/friendly-snippets',
     },
+    source = {
+      { name = "neorg"},
+    }
   },
 
   -- Useful plugin to show you pending keybinds.
@@ -181,12 +145,11 @@ require('lazy').setup({
     main = "ibl",
     name = "ibl",
     opts = {},
-    config = function ()
+    config = function()
       require("ibl").setup()
     end
   },
 
-  -- TODO: Customize commenting further to be easier
   -- "gc" to comment visual regions/lines
   { 'numToStr/Comment.nvim', opts = {} },
 
@@ -432,20 +395,21 @@ local on_attach = function(_, bufnr)
   nmap('gr', require('telescope.builtin').lsp_references, '[G]oto [R]eferences')
   nmap('gI', require('telescope.builtin').lsp_implementations, '[G]oto [I]mplementation')
   nmap('<leader>D', vim.lsp.buf.type_definition, 'Type [D]efinition')
-  nmap('<leader>ds', require('telescope.builtin').lsp_document_symbols, '[D]ocument [S]ymbols')
-  nmap('<leader>ws', require('telescope.builtin').lsp_dynamic_workspace_symbols, '[W]orkspace [S]ymbols')
+  -- nmap('<leader>ds', require('telescope.builtin').lsp_document_symbols, '[D]ocument [S]ymbols')
+  -- nmap('<leader>ws', require('telescope.builtin').lsp_dynamic_workspace_symbols, '[W]orkspace [S]ymbols')
 
   -- See `:help K` for why this keymap
   nmap('K', vim.lsp.buf.hover, 'Hover Documentation')
   nmap('<C-k>', vim.lsp.buf.signature_help, 'Signature Documentation')
 
   -- Lesser used LSP functionality
+  -- TODO: change goto declaration and move lsp to its own file
   nmap('gD', vim.lsp.buf.declaration, '[G]oto [D]eclaration')
-  nmap('<leader>wa', vim.lsp.buf.add_workspace_folder, '[W]orkspace [A]dd Folder')
-  nmap('<leader>wr', vim.lsp.buf.remove_workspace_folder, '[W]orkspace [R]emove Folder')
-  nmap('<leader>wl', function()
-    print(vim.inspect(vim.lsp.buf.list_workspace_folders()))
-  end, '[W]orkspace [L]ist Folders')
+  -- nmap('<leader>wa', vim.lsp.buf.add_workspace_folder, '[W]orkspace [A]dd Folder')
+  -- nmap('<leader>wr', vim.lsp.buf.remove_workspace_folder, '[W]orkspace [R]emove Folder')
+  -- nmap('<leader>wl', function()
+  --   print(vim.inspect(vim.lsp.buf.list_workspace_folders()))
+  -- end, '[W]orkspace [L]ist Folders')
 
   -- Create a command `:Format` local to the LSP buffer
   vim.api.nvim_buf_create_user_command(bufnr, 'Format', function(_)
@@ -458,7 +422,6 @@ require('which-key').register {
   ['<leader>c'] = { name = '[C]ode', _ = 'which_key_ignore' },
   ['<leader>d'] = { name = '[D]ocument', _ = 'which_key_ignore' },
   ['<leader>g'] = { name = '[G]it', _ = 'which_key_ignore' },
-  ['<leader>h'] = { name = 'More git', _ = 'which_key_ignore' },
   ['<leader>r'] = { name = '[R]ename', _ = 'which_key_ignore' },
   ['<leader>s'] = { name = '[S]earch', _ = 'which_key_ignore' },
   ['<leader>w'] = { name = '[W]orkspace', _ = 'which_key_ignore' },
@@ -491,7 +454,6 @@ local servers = {
       telemetry = { enable = false },
     },
   },
-  rust_analyzer = {}
 }
 
 -- Setup neovim lua configuration
@@ -570,49 +532,17 @@ cmp.setup {
 -- The line beneath this is called `modeline`. See `:help modeline`
 -- vim: ts=2 sts=2 sw=2 et
 
---    --PERSONAL--
--- Global key groups
-local wk = require("which-key")
-wk.register({
-  ["<leader>"] = {
-    g = {
-      name = "Git",
-    },
-    ["<leader>"] = {
-      name = "Telescope search"
-    },
-    e = {
-      name = "Error/Diagnostics/Debug"
-    },
-    d = {
-      name = "Delphi"
-    }
-  }
-})
+-- --PERSONAL--
 
--- Git keybindings
--- <leader>g for git "submenu"
-wk.register({
-  ["<leader>g"] = {
-    b = {
-      name = "Local buffer",
-    }
-  }
-})
+-- set winbar
+vim.opt.winbar = "%=%m %f"
 
-vim.keymap.set('n', '<leader>gc', "<Cmd>Telescope git_commits<CR>", { desc = 'Global git commits' })
-vim.keymap.set('n', '<leader>gbc', "<Cmd>Telescope git_bcommits<CR>", { desc = 'Buffer git commits' })
-vim.keymap.set('n', '<leader>gb', "<Cmd>Telescope git_branches<CR>", { desc = 'Global git branches' })
-
--- Telescope keybindings
-vim.keymap.set('n', '<leader><leader>g', "<Cmd>Telescope live_grep<CR>", { desc = 'Live grep' })
-vim.keymap.set('n', '<leader><leader>f', "<Cmd>Telescope fd<CR>", { desc = 'Search files' })
-vim.keymap.set('n', '<leader><leader>/', function()
-  require('telescope.builtin').current_buffer_fuzzy_find(require('telescope.themes').get_dropdown {
-    winblend = 10,
-    previewer = false,
-  })
-end, { desc = 'Search current buffer' })
-
--- Error/Diagnostics/Debuggins
-vim.keymap.set('n', '<leader>ed', "<Cmd>Telescope diagnostics<CR>", { desc = 'Current diagnostics' })
+-- Loading custom files
+require("custom.keybinds")
+require("custom.treesitter.DEKSQL")
+require("custom.notes")
+require("custom.terminals")
+require("custom.dek")
+require("custom.encoding")
+require("custom.delphi")
+require("custom.init")

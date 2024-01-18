@@ -1,3 +1,4 @@
+-- https://github.com/nvim-neo-tree/neo-tree.nvim
 -- Unless you are still migrating, remove the deprecated commands from v1.x
 vim.cmd([[ let g:neo_tree_remove_legacy_commands = 1 ]])
 
@@ -64,9 +65,21 @@ return {
         ["<"] = "prev_source",
         [">"] = "next_source",
         ["i"] = "show_file_details",
+      },
+      commands = {
+        test = function (state)
+        end
+      },
+      event_handlers = {
+        {
+          event = "file_opened",
+          handler = function (file_path)
+            require("neo-tree.command").execute({ action = "close" })
+          end
+        },
       }
     }
-
-    vim.keymap.set('n', "<leader>e", "<Cmd>Neotree toggle<CR>")
+    -- TODO: Setup autoclose on Open, but also setup a "preview", where it doesnt close, so just browsing is also possible
+    -- TODO: Move neotree keybinds here
   end,
 }

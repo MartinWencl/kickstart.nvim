@@ -1,6 +1,6 @@
+-- https://github.com/lukas-reineke/lsp-format.nvim
 return {
   -- LSP Format
-  -- https://github.com/lukas-reineke/lsp-format.nvim
   'lukas-reineke/lsp-format.nvim',
   config = function()
     -- Prettier setup
