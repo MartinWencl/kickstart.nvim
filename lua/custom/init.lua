@@ -8,7 +8,7 @@ vim.keymap.set("n", "<leader><leader>x", "<Cmd>source %<CR>", { desc = "source c
 
 -- Opening floating diagnostic window
 vim.keymap.set("n", "<leader>i", ":lua vim.diagnostic.open_float(nil, {focus=false, scope=\"cursor\"})<CR>", { desc = "Open floating diagnostic window", silent = true })
- 
+
 -- setting EOL char
 vim.opt.list = true
 vim.opt.listchars = {

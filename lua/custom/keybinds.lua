@@ -61,32 +61,28 @@ vim.keymap.set("n", "<leader>gb", "<Cmd>Telescope git_branches<CR>", { desc = 'G
 
 -- Telescope keybindings
 vim.keymap.set("n", "<leader>sg", "<Cmd>Telescope live_grep<CR>", { desc = 'Live [g]rep' })
-vim.keymap.set("n", "<leader>sf", "<Cmd>Telescope fd<CR>", { desc = 'Search [f]iles' })
+vim.keymap.set("n", "<leader>sf", "<Cmd>Telescope fd theme=ivy<CR>", { desc = 'Search [f]iles' })
 vim.keymap.set("n", "<leader>s/", function()
   require("telescope.builtin").current_buffer_fuzzy_find(require("telescope.themes").get_dropdown {
     winblend = 10,
     previewer = true,
   })
 end, { desc = "Search current buffer" })
+vim.keymap.set("n", "<leader>sb", "<Cmd>Telescope buffers<CR>", { desc = "View buffers" })
 
 -- Error/Diagnostics/Debuggins
 vim.keymap.set("n", "<leader>ed", "<Cmd>Telescope diagnostics<CR>", { desc = 'Current [d]iagnostics' })
+vim.keymap.set('n', '<leader>el', vim.diagnostic.setloclist, { desc = 'Open diagnostics list' })
 
 -- File management keybindings
--- TODO: rethink
-vim.keymap.set("n", "<leader>ff", "<Cmd>Neotree float<CR>", { desc = 'Floating file explorer' })
-vim.keymap.set("n", "<leader>fe", "<Cmd>Neotree toggle<CR>", { desc = 'Floating file explorer' })
 vim.keymap.set("n", "<leader>e", "<Cmd>Neotree toggle<CR>")
-
--- buffers
--- TODO: Add more buffer functionality
-vim.keymap.set("n", "<leader>bb", "<Cmd>Telescope buffers<CR>", { desc = "View buffers" })
 
 -- Terminal
 -- Changes the crazy default terminal escape keymap to esc
 vim.keymap.set("t", "<esc>", "<C-\\><C-n>", { silent = true })
 
 -- Tab navigation
+-- TODO: Fix
 vim.keymap.set("n", "<leader>tq", "<Cmd>tabclose<CR>", { silent = true, desc = "close tab" })
 vim.keymap.set("n", "<leader>ta", "<Cmd>tabnew<CR>", { silent = true, desc = "new tab - [a]fter current tab" })
 vim.keymap.set("n", "<leader>tb", "<Cmd>-tabnew<CR>", { silent = true, desc = "new tab - [b]efore current tab" })
