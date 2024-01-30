@@ -37,7 +37,6 @@ vim.api.nvim_create_autocmd("BufLeave", {
 })
 
 -- Autocmd -> removes the file if it has been written to.
--- TODO: Does this work
 -- TODO: Is there a better way to do this? Maybe block write before it happens with BufWritePre
 vim.api.nvim_create_autocmd("BufWritePost", {
   pattern = "quicknote.norg",

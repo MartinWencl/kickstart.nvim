@@ -77,6 +77,11 @@ return {
     vim.keymap.set("n", "<leader>nl", "<Cmd>Telescope neorg insert_link<CR>", { desc = "insert [l]ink" })
     vim.keymap.set("n", "<leader>nf", "<Cmd>Telescope neorg insert_file_link<CR>", { desc = "insert [f]ile link" })
 
+    -- switch between neorg and follow link modes
+    -- local switch_modes = function ()
+    --   local neorg = require("neorg
+    -- end
+
     vim.wo.foldlevel = 99
     vim.wo.conceallevel = 2
   end,

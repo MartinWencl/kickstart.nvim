@@ -175,19 +175,8 @@ require('lazy').setup({
     build = ':TSUpdate',
   },
 
-  -- NOTE: Next Step on Your Neovim Journey: Add/Configure additional "plugins" for kickstart
-  --       These are some example plugins that I've included in the kickstart repository.
-  --       Uncomment any of the lines below to enable them.
-  -- require 'kickstart.plugins.autoformat',
-  -- require 'kickstart.plugins.debug',
-
-  -- NOTE: The import below can automatically add your own plugins, configuration, etc from `lua/custom/plugins/*.lua`
-  --    You can use this folder to prevent any conflicts with this init.lua if you're interested in keeping
-  --    up-to-date with whatever is in the kickstart repo.
-  --    Uncomment the following line and add your plugins to `lua/custom/plugins/*.lua` to get going.
-  --
-  --    For additional information see: https://github.com/folke/lazy.nvim#-structuring-your-plugins
-  { import = 'custom.plugins' },
+  -- For additional information see: https://github.com/folke/lazy.nvim#-structuring-your-plugins
+  { import = 'plugins' },
 }, {})
 
 -- [[ Setting options ]]
@@ -413,7 +402,7 @@ require('which-key').register({
   ['<leader>c'] = { name = '[C]ode', _ = 'which_key_ignore' },
   ['<leader>d'] = { name = '[D]ocument', _ = 'which_key_ignore' },
   ['<leader>g'] = { name = '[G]it', _ = 'which_key_ignore' },
-  ['<leader>r'] = { name = '[R]ename', _ = 'which_key_ignore' },
+  -- ['<leader>r'] = { name = '[R]ename', _ = 'which_key_ignore' },
   ['<leader>s'] = { name = '[S]earch', _ = 'which_key_ignore' },
   ['<leader>w'] = { name = '[W]orkspace', _ = 'which_key_ignore' },
 })
@@ -524,11 +513,9 @@ cmp.setup {
 vim.opt.winbar = "%=%m %f"
 
 -- Loading custom files
-require("custom.keybinds")
-require("custom.treesitter.DEKSQL")
-require("custom.notes")
-require("custom.terminals")
-require("custom.dek")
-require("custom.encoding")
-require("custom.delphi")
-require("custom.init")
+require("keybinds")
+require("treesitter.DEKSQL")
+require("notes")
+require("terminals")
+require("dek")
+require("init")

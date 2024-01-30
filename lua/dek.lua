@@ -1,15 +1,21 @@
 require "lib.env"
 
-local wk = require("which-key")
-wk.register({
-  ["<leader>w"] = {
-    w = {
-      name = "[w]ork",
-    }
-  }
+-- Sets the correct encoding for these files
+-- cp1250 encoding for .pas, .dfm, .proj, .dproj 
+vim.api.nvim_create_autocmd("BufReadPost", {
+  pattern = {"*.pas", "*.dfm", "*.proj", "*.dproj"},
+  group = vim.api.nvim_create_augroup("DEKEncoding", { clear = true }),
+  callback = function ()
+    local bufnr = vim.api.nvim_get_current_buf()
+    vim.api.nvim_buf_call(bufnr, function ()
+      vim.cmd("edit! ++enc=cp1250")
+      vim.print("Encoding set!")
+    end)
+  end
 })
 
-local path_to_notes = vim.fn.expand("~") .. "/Notes/work"
+-- Searching trough project notes
+local path_to_notes = vim.fn.expand("~") .. "/Notes/work/projects"
 vim.keymap.set("n", "<leader>ws", "<Cmd>Telescope find_files search_dirs=" .. path_to_notes .. "<CR>",
   { desc = "[s]elect note in work workspace", silent = true })
 
@@ -18,7 +24,7 @@ vim.keymap.set("n", "<leader>ws", "<Cmd>Telescope find_files search_dirs=" .. pa
 local path_to_repo = "/mnt/c/Vyvoj/Projekty-developer/ripgrep/"
 local excluded = { ".svn", "Zdroje", "zzzDCU", "zzzHelp" }
 
---- Function that returns a list of directiories, from a given path, while excluding given directory names
+--- Function that returns a list of directories, from a given path, while excluding given directory names
 ---@param path string given path to repo, using linux conventions
 ---@param excluded_names table list of names that will be excluded from the resulting list
 local get_repo_directories = function(path, excluded_names)
@@ -95,15 +101,16 @@ local new_ita = function()
 
     local workspace_name = "work"
     local workspace_path = dirman.get_workspace(workspace_name)
-    local folder = "ITA-" .. id
+    local projects_folder = "projects/"
+    local ita_folder = "ITA-" .. id
     local template = vim.split(
       [[
 @document.meta
-title: ]] .. " " .. folder .. "\n" .. [[
+title: ]] .. " " .. ita_folder .. "\n" .. [[
 authors: martinw
 categories: ITA
 @end ]]
-      .. "\n\n" .. "* " .. folder .. "\n\n" ..
+      .. "\n\n" .. "* " .. ita_folder .. "\n\n" ..
     [[
 ** Zadání:
    - zde vypsat (ideálně v bodech) o čem v projektu jde
@@ -117,8 +124,8 @@ categories: ITA
       , "\n")
 
     -- Creates the ITA dir and index file
-    vim.fn.mkdir(workspace_path .. "/" .. folder)
-    dirman.create_file(folder .. "/" .. "index.norg", workspace_name)
+    vim.fn.mkdir(workspace_path .. "/" .. projects_folder .. ita_folder)
+    dirman.create_file(projects_folder .. ita_folder .. "/" .. "index.norg", workspace_name)
 
     -- Writes the template to the new index file
     local bufnr = vim.api.nvim_get_current_buf()
@@ -126,4 +133,5 @@ categories: ITA
   end)
 end
 
+-- New ITA note in the ~/notes/projects/ dir
 vim.keymap.set("n", "<leader>wn", new_ita, { desc = "[n]ew ITA note" })

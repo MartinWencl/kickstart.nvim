@@ -1,4 +1,5 @@
 -- https://github.com/lukas-reineke/lsp-format.nvim
+-- TODO: REWRITE
 return {
   -- LSP Format
   'lukas-reineke/lsp-format.nvim',

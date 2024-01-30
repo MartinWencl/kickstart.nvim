@@ -3,33 +3,16 @@
 local wk = require("which-key")
 wk.register({
   ["<leader>"] = {
-    g = {
-      name = "[g]it",
-    },
-    s = {
-      name = "[s]earch"
-    },
-    e = {
-      name = "[e]rror/diagnostics/debug"
-    },
-    d = {
-      name = "[d]elphi"
-    },
-    f = {
-      name = "[f]iles",
-    },
-    b = {
-      name = "[b]uffers"
-    },
-    p = {
-      name = "[p]review"
-    },
-    t = {
-      name = "[t]abs"
-    },
-    o = {
-      name = "[o]pen"
-    },
+    g = { name = "[g]it", },
+    s = { name = "[s]earch" },
+    e = { name = "[e]rror/diagnostics/debug" },
+    d = { name = "[d]elphi" },
+    f = { name = "[f]iles", },
+    b = { name = "[b]uffers" },
+    p = { name = "[p]review" },
+    t = { name = "[t]abs" },
+    o = { name = "[o]pen" },
+    w = { name = '[w]work' },
   }
 })
 
@@ -106,4 +89,7 @@ hydra({
 })
 
 -- Sourcing file
-vim.keymap.set("n", "<leader><leader>x", "<Cmd>source %<CR>", { desc = "source current file"})
+vim.keymap.set("n", "<leader><leader>x", "<Cmd>source %<CR>", { desc = "source current file" })
+
+-- Opening floating diagnostic window
+vim.keymap.set("n", "<leader>i", ":lua vim.diagnostic.open_float(nil, {focus=false, scope=\"cursor\"})<CR>", { desc = "Open floating diagnostic window", silent = true })
