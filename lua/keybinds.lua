@@ -44,13 +44,8 @@ vim.keymap.set("n", "<leader>gb", "<Cmd>Telescope git_branches<CR>", { desc = 'G
 
 -- Telescope keybindings
 vim.keymap.set("n", "<leader>sg", "<Cmd>Telescope live_grep<CR>", { desc = 'Live [g]rep' })
-vim.keymap.set("n", "<leader>sf", "<Cmd>Telescope fd theme=ivy<CR>", { desc = 'Search [f]iles' })
-vim.keymap.set("n", "<leader>s/", function()
-  require("telescope.builtin").current_buffer_fuzzy_find(require("telescope.themes").get_dropdown {
-    winblend = 10,
-    previewer = true,
-  })
-end, { desc = "Search current buffer" })
+vim.keymap.set("n", "<leader>sf", "<Cmd>Telescope fd <CR>", { desc = 'Search [f]iles' })
+vim.keymap.set("n", "<leader>s/", "<Cmd>Telescope current_buffer_fuzzy_find <CR>", { desc = "Search current buffer" })
 vim.keymap.set("n", "<leader>sb", "<Cmd>Telescope buffers<CR>", { desc = "View buffers" })
 
 -- Error/Diagnostics/Debuggins
