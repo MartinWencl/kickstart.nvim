@@ -2,6 +2,7 @@ require "lib.env"
 
 -- Sets the correct encoding for these files
 -- cp1250 encoding for .pas, .dfm, .proj, .dproj 
+-- NOTE: Reopens the file with the correct encodinga
 vim.api.nvim_create_autocmd("BufReadPost", {
   pattern = {"*.pas", "*.dfm", "*.proj", "*.dproj"},
   group = vim.api.nvim_create_augroup("DEKEncoding", { clear = true }),
@@ -15,8 +16,7 @@ vim.api.nvim_create_autocmd("BufReadPost", {
 
 -- Searching trough project notes
 local path_to_notes = vim.fn.expand("~") .. "/Notes/work/projects"
-vim.keymap.set("n", "<leader>ws", "<Cmd>Telescope find_files search_dirs=" .. path_to_notes .. "<CR>",
-  { desc = "[s]elect note in work workspace", silent = true })
+vim.api.nvim_create_user_command("DEKSearchNote", function () require("telescope.builtin").find_files({ search_dirs = { path_to_notes } }) end, {})
 
 -- DEKSearch
 -- Paths to search in
@@ -79,17 +79,16 @@ local use_live_grep = function()
   mode = "live_grep"
   select_dir_to_search()
 end
-vim.keymap.set("n", "<leader>wg", use_live_grep, { desc = "[g]rep search trough SVN" })
+vim.api.nvim_create_user_command("DEKSearchGrep", use_live_grep, {})
 
 local use_find_files = function()
   mode = "find_files"
   select_dir_to_search()
 end
-vim.keymap.set("n", "<leader>wf", use_find_files, { desc = "[f]iles search trough SVN" })
+vim.api.nvim_create_user_command("DEKSearchFiles", use_find_files, {})
 
 -- Neorg config for DEK
 local dirman = require('neorg').modules.get_module("core.dirman")
-local neorg = require('neorg').modules.get_module("core.")
 
 -- Creating new notes for ITAs
 local new_ita = function()
@@ -133,4 +132,4 @@ categories: ITA
 end
 
 -- New ITA note in the ~/notes/projects/ dir
-vim.keymap.set("n", "<leader>wn", new_ita, { desc = "[n]ew ITA note" })
+vim.api.nvim_create_user_command("DEKNewNote", new_ita, {})

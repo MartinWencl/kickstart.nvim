@@ -47,7 +47,6 @@ local toggle_bottom_term = function()
 end
 
 vim.api.nvim_create_user_command("TermBottom", toggle_bottom_term, {})
-vim.keymap.set("n", "<leader>ot", toggle_bottom_term, { desc = "open bottom [t]erminal"})
 
 --- drop-down terminal, like Yakuake.
 -- TODO: make toggle
@@ -85,4 +84,3 @@ local toggle_quake_term = function()
 end
 
 vim.api.nvim_create_user_command("TermQuake", toggle_quake_term, {})
-vim.keymap.set("n", "<leader>oq", toggle_quake_term, { desc = "open [q]uake terminal" })

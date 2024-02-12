@@ -28,3 +28,16 @@ keybinds
 neotree
 linewrap
 scrolloff
+Treesitter
+treesitter
+conf
+init
+LSP
+breakindent
+lsp
+filetypes
+html
+stdpath
+neovim
+keymaps
+nvim
