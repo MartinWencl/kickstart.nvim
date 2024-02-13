@@ -84,9 +84,9 @@ return {
       vim.keymap.set('n', '<leader>sG', live_grep_git_root, { desc = '[S]earch by [G]rep on Git Root' })
       vim.keymap.set('n', '<leader>sd', builtin.diagnostics, { desc = '[S]earch [D]iagnostics' })
       vim.keymap.set('n', '<leader>sr', builtin.resume, { desc = '[S]earch [R]esume' })
-      vim.keymap.set("n", "<leader>sgc", builtin.git_commits, { desc = '[s]earch [g]it [c]ommits' })
-      vim.keymap.set("n", "<leader>sgbc", builtin.git_bcommits, { desc = '[s]earch [b]uffer [g]it [c]ommits' })
-      vim.keymap.set("n", "<leader>sgb", builtin.git_branches, { desc = '[s]earch [g]it [b]ranches' })
+      vim.keymap.set("n", "<leader>sc", builtin.git_commits, { desc = '[s]earch [g]it [c]ommits' })
+      vim.keymap.set("n", "<leader>sbc", builtin.git_bcommits, { desc = '[s]earch [b]uffer [g]it [c]ommits' })
+      vim.keymap.set("n", "<leader>sb", builtin.git_branches, { desc = '[s]earch [g]it [b]ranches' })
     end
   },
 }

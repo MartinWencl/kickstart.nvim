@@ -128,6 +128,7 @@ return {
           return '<Ignore>'
         end, { expr = true, desc = 'Jump to previous hunk' })
 
+        -- TODO: Fix - keybinds don't work currently
         -- Actions
         -- visual mode
         map('v', '<leader>hs', function()
@@ -186,7 +187,7 @@ return {
     end
   },
 
-  -- "gc" to comment visual regions/lines
+  -- Add easy commenting
   { 'numToStr/Comment.nvim', opts = {} },
 
 }
