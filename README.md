@@ -1,5 +1,7 @@
 # kickstart.nvim
 
+**MY NEOVIM CONFIG HAS MOVED**. You can check it out in [.dotfiles](https://github.com/MartinWencl/.dotfiles). 
+
 This is my fork of the kickstart neovim project. **[kickstart.nvim](https://github.com/nvim-lua/kickstart.nvim
 )** is a simple default Neovim configuration and a great way to start creating a custom config.
 
